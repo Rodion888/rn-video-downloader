@@ -4,11 +4,16 @@ import { GestureHandlerRootView, ScrollView } from "react-native-gesture-handler
 import { images } from "../constants";
 import { StatusBar } from "expo-status-bar";
 import { Redirect, router } from 'expo-router';
+import { useGlobalContext } from "../context/GlobalProvider";
 
 import React from "react";
 import CustomButton from "../components/CustomButton";
 
 export default function App() {
+  const { isLoading, isLoggedIn } = useGlobalContext()
+
+  if (!isLoading && !isLoggedIn) return <Redirect href="/home" />
+
   return (
     <GestureHandlerRootView>
       <SafeAreaView className="bg-primary h-full">
