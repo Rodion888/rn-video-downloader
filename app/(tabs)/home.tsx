@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
 import { View, FlatList, SafeAreaView, Text, Image, RefreshControl, Alert } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { images } from '../../constants';
-import { getAllPosts } from '../../lib/appwrite';
+import { getAllPosts, getLatestPosts } from '../../lib/appwrite';
 
 import SearchInput from '../../components/SearchInput';
 import Trending from '../../components/Trending';
@@ -12,13 +12,14 @@ import useAppwrite from '../../lib/useAppwrite';
 import VideoCard from '../../components/VideoCard';
 
 const Home = () => {
-  const { data: posts, isLoading, refetch } = useAppwrite(getAllPosts)
+  const { data: posts, refetch } = useAppwrite(getAllPosts);
+  const { data: latestPosts } = useAppwrite(getLatestPosts);
+
   const [refresing, setRefresing] = useState(false);
 
   const onRefresh = async () => {
     setRefresing(true);
     await refetch();
-    // recall if videos appeared
     setRefresing(false);
   }
 
@@ -39,7 +40,7 @@ const Home = () => {
                     Welcome Back
                   </Text>
                   <Text className='text-2xl font-psemibold text-white'>
-                    user name
+                    User name
                   </Text>
                 </View>
                 <View>
@@ -55,7 +56,7 @@ const Home = () => {
                 <Text className='text-gray-100 text-lg font-pregular mb-3'>
                   Latest Videos
                 </Text>
-                <Trending posts={[{ id: 1 }] ?? []} />
+                <Trending posts={latestPosts ?? []} />
               </View>
             </View>
           )}

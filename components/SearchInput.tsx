@@ -4,7 +4,6 @@ import { View, TextInput, Image } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { icons } from '../constants';
 
-// fix any later
 const SearchInput: React.FC<any> = ({ value, handleChangeText}) => {
   return (
     <View className='space-x-4 w-full h-16 px-4 flex-row bg-black-100 border-2 border-black-200 rounded-2xl focus:border-secondary items-center'>

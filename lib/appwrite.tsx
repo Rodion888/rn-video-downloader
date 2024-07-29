@@ -17,7 +17,7 @@ const {
   databaseId,
   userCollectionId,
   videoCollectionId,
-  storageId
+  storageId,
 } = config;
 
 let client;
@@ -99,6 +99,20 @@ export const getAllPosts = async () => {
     const posts = await databases.listDocuments(
       databaseId,
       videoCollectionId,
+    )
+
+    return posts.documents;
+  } catch (error: any) {
+    throw new Error(error)
+  }
+}
+
+export const getLatestPosts = async () => {
+  try {
+    const posts = await databases.listDocuments(
+      databaseId,
+      videoCollectionId,
+      [Query.orderDesc('$createdAt'), Query.limit(7)],
     )
 
     return posts.documents;
