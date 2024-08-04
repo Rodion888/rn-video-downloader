@@ -6,11 +6,14 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { images } from '../../constants'
 import { Link, router } from 'expo-router'
 import { createUser } from '../../lib/appwrite';
+import { useGlobalContext } from '../../context/GlobalProvider'
 
 import FormField from '../../components/FormField'
 import CustomButton from '../../components/CustomButton'
 
 const SignUp = () => {
+  const { setUser, setIsLoggedIn } = useGlobalContext();
+
   const [form, setForm] = useState({ username: '', email: '', password: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -24,7 +27,8 @@ const SignUp = () => {
     try {
       const result = await createUser(form.email, form.password, form.username);
 
-      // needs to set it in global context
+      setUser(result);
+      setIsLoggedIn(true);
 
       router.replace('/home');
     } catch (error: any) {

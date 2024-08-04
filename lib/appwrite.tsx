@@ -120,3 +120,41 @@ export const getLatestPosts = async () => {
     throw new Error(error)
   }
 }
+
+export const searchPosts = async (query: string | any) => {
+  try {
+    const posts = await databases.listDocuments(
+      databaseId,
+      videoCollectionId,
+      [Query.search('title', query)],
+    )
+
+    return posts.documents;
+  } catch (error: any) {
+    throw new Error(error)
+  }
+}
+
+export const getUserPosts = async (userId: string) => {
+  try {
+    const posts = await databases.listDocuments(
+      databaseId,
+      videoCollectionId,
+      [Query.search('creator', userId)],
+    )
+
+    return posts.documents;
+  } catch (error: any) {
+    throw new Error(error)
+  }
+}
+
+export const signOut = async () => {
+  try {
+    const session = await account.deleteSession('current')
+
+    return session;
+  } catch (error: any) {
+    throw new Error(error)
+  }
+}

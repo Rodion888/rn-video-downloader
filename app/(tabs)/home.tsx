@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 
-import { View, FlatList, SafeAreaView, Text, Image, RefreshControl, Alert } from 'react-native'
+import { View, FlatList, SafeAreaView, Text, Image, RefreshControl } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { images } from '../../constants';
 import { getAllPosts, getLatestPosts } from '../../lib/appwrite';
+import { useGlobalContext } from '../../context/GlobalProvider';
 
 import SearchInput from '../../components/SearchInput';
 import Trending from '../../components/Trending';
@@ -12,6 +13,7 @@ import useAppwrite from '../../lib/useAppwrite';
 import VideoCard from '../../components/VideoCard';
 
 const Home = () => {
+  const { user }: any = useGlobalContext()
   const { data: posts, refetch } = useAppwrite(getAllPosts);
   const { data: latestPosts } = useAppwrite(getLatestPosts);
 
@@ -37,10 +39,10 @@ const Home = () => {
               <View className='justify-between items-start-flex-row mb-6'>
                 <View>
                   <Text className='font-pmedium text-sm text-gray-100'>
-                    Welcome Back
+                    Welcome back,
                   </Text>
                   <Text className='text-2xl font-psemibold text-white'>
-                    User name
+                    {user?.username}
                   </Text>
                 </View>
                 <View>
@@ -70,4 +72,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default Home;

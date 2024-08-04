@@ -14,7 +14,7 @@ export interface GlobalContextType {
   isLoggedIn: boolean;
   setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
   user: UserProps | null;
-  setUser: React.Dispatch<React.SetStateAction<UserProps | null>>;
+  setUser: React.Dispatch<React.SetStateAction<UserProps | any>>;
   isLoading: boolean;
 }
 

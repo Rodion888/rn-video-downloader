@@ -13,7 +13,7 @@ interface FormFieldProps extends TextInputProps {
   keybordType?: string;
 }
 
-const FormField: React.FC<FormFieldProps> = ({ title, value, placeholder, handleChangeText, otherStyles, ...props}) => {
+const FormField: React.FC<FormFieldProps> = ({ title, value, placeholder, handleChangeText, otherStyles}) => {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
